@@ -7,10 +7,11 @@ import Navbar from "../components/Navbar";
 // Change this to the chain your app is built for.
 // You can also import additional chains from `@thirdweb-dev/chains` and pass them directly.
 const activeChain = "goerli";
+const id = "8aeba115243980d3d5059cd31da58fe6";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider activeChain={activeChain}>
+    <ThirdwebProvider activeChain={activeChain} clientId={id}>
       <ChakraProvider>
         <Navbar />
         <Component {...pageProps} />

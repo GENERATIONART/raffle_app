@@ -48,6 +48,7 @@ const Home: NextPage = () => {
       setTicketAmount(ticketAmount - 1);
     }
   }
+
   return (
     <Container maxW={"1440px"}>
       
@@ -85,7 +86,7 @@ const Home: NextPage = () => {
                 >
                   APPROVE TOKEN FOR USE
                 </Web3Button>
-                
+
             {address ? (
               <Flex flexDirection={"row"}>
                 <Flex flexDirection={"row"} w={"25%"} mr={"40px"}>
@@ -104,8 +105,6 @@ const Home: NextPage = () => {
                   >+</Button>
                 </Flex>
                 
-                
-
                 <Web3Button
                   contractAddress={LOTTERY_CONTRACT_ADDRESS}
                   action={
@@ -126,7 +125,6 @@ const Home: NextPage = () => {
             {!totalEntriesLoading && (
               <Text>Total Entries: {totalEntries.toString()}</Text>
             )}
-
              
           </Stack>
         </Flex>
