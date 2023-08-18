@@ -16,12 +16,14 @@ const EntryCard: React.FC<Props> = ({ walletAddress }) => {
         isLoading: numberOfEntriesLoading
     } = useContractRead(contract, "entryCounts", [walletAddress]);
 
+    
+
     function truncateAddress(address: string) {
-        return address.slice(0, 6) + "..." + address.slice(-4);
+        return address.slice(0, 9) + "..." + address.slice(-7);
     };
 
     return (
-        <Card p={8} mb={4}>
+        <Card p={6} mb={4}>
             {!numberOfEntriesLoading && (
                 <Flex flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Text border={"1px solid"} borderRadius={"6px"} p={2} mr={2}>{truncateAddress(walletAddress)}</Text>

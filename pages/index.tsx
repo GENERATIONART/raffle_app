@@ -52,8 +52,8 @@ const Home: NextPage = () => {
   return (
     <Container maxW={"1440px"}>
       
-      <SimpleGrid columns={2} spacing={4} minH={"60vh"}>
-        <Flex justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
+      <SimpleGrid columns={[1,1,2]} spacing={4} minH={"60vh"} >
+        <Flex justifyContent={"center"} alignItems={"center"} flexDirection={"row"}>
           {lotteryStatus ? (
             <PrizeNFT />
           ) : (
