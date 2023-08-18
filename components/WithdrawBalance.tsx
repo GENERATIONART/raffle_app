@@ -1,9 +1,10 @@
 import { Box, Spinner, Text } from "@chakra-ui/react";
-import { Web3Button, useContract, useContractRead } from "@thirdweb-dev/react";
+import { MediaRenderer, Web3Button, useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
 import { LOTTERY_CONTRACT_ADDRESS } from "../const/addresses";
 import { ethers } from "ethers";
+import { useState } from "react";
 
-export default function withdrawBalance() {
+export default function WithdrawBalance() {
     const {
         contract
     } = useContract(LOTTERY_CONTRACT_ADDRESS);
