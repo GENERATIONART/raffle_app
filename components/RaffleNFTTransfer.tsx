@@ -19,6 +19,7 @@ const RaffleNFTTransfer: React.FC<Props> = ({ contractAddress, tokenId }) => {
     const {
         contract: prizeNftContract
     } = useContract(contractAddress, "nft-drop");
+    
     const {
         data: prizeNftContractMetadata
     } = useContractMetadata(prizeNftContract);

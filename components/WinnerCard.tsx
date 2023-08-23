@@ -6,7 +6,7 @@ type Props = {
     walletAddress: string;
 };
 
-const EntryCard: React.FC<Props> = ({ walletAddress }) => {
+const WinnerCard: React.FC<Props> = ({ walletAddress }) => {
     const {
         contract
     } = useContract(LOTTERY_CONTRACT_ADDRESS);
@@ -16,6 +16,12 @@ const EntryCard: React.FC<Props> = ({ walletAddress }) => {
         isLoading: numberOfEntriesLoading
     } = useContractRead(contract, "entryCounts", [walletAddress]);
 
+
+    const {
+        data: winner,
+        isLoading: winnerLoading,
+      } = useContractRead(contract, "getWinner");
+
     
 
     function truncateAddress(address: string) {
@@ -24,15 +30,14 @@ const EntryCard: React.FC<Props> = ({ walletAddress }) => {
 
     return (
         <Card p={6} mb={4}>
-            {!numberOfEntriesLoading && (
+            {!winnerLoading && (
                 <Flex flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Text border={"1px solid"} borderRadius={"6px"} p={2} mr={2}>{truncateAddress(walletAddress)}</Text>
-                    <Text>Entries: {numberOfEntries.toNumber()}</Text>
-
+                    <Text fontSize={"30px"}>🎉</Text>
                 </Flex>
             )}
         </Card>
     )
 };
 
-export default EntryCard;
+export default WinnerCard;

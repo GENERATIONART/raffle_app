@@ -30,7 +30,10 @@ export default function AdminTicketPriceCard() {
     return (
         <Stack spacing={4}>
             <Box>
+            
             <Text fontWeight={"bold"} mb={4} fontSize={"xl"}>CCY Contract Address</Text>
+            
+            
               <Input
                 type="string"
                 value={payToken}
@@ -44,6 +47,8 @@ export default function AdminTicketPriceCard() {
                     <Spinner />
                 )}
             </Box>
+            
+            
             <Input
                 type="number"
                 value={ticketPrice}

@@ -4,7 +4,7 @@ html,
 body {
   background: var(--black);
   font-family: 'Perfect DOS VGA 437', sans-serif;
-  color: var(--white);
+  color: var(--black);
   display: flex;
   margin: 0;
   text-align: center;

@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 import PrizeNFT from "../components/PrizeNFT";
 import { useState } from "react";
 import CurrentEntries from "../components/CurrentEntries";
+import Winner from "../components/Winner";
 
 const Home: NextPage = () => {
   const address = useAddress();
@@ -29,12 +30,22 @@ const Home: NextPage = () => {
     data: ticketCost2,
     isLoading: ticketCost2Loading
   } = useContractRead(contract, "getTokenCostInfo", [0] );
+  
   const ticketCostInDOS = ticketCost2 ? ethers.utils.formatEther(ticketCost) : "0";
 
   const {
     data: totalEntries,
     isLoading: totalEntriesLoading
   } = useContractRead(contract, "totalEntries");
+
+ 
+
+
+  //raffle winner here 
+
+  //is Approved for token allowance here 
+
+  
 
   const [ticketAmount, setTicketAmount] = useState(0);
   const ticketCostSubmit = parseFloat(ticketCostInEther) * ticketAmount;
@@ -68,7 +79,7 @@ const Home: NextPage = () => {
         <Flex justifyContent={"center"} alignItems={"center"} p={"5%"}>
           <Stack spacing={10}>
             <Box>
-              <Text fontSize={"xl"}>TRASH RAFFLES</Text>
+              <Text fontSize={"xl"}>ART RAFFLES</Text>
               <Text fontSize={"4xl"} fontWeight={"bold"}>Buy a ticket to win the NFT Prize!</Text>
             </Box>
             
@@ -124,13 +135,14 @@ const Home: NextPage = () => {
             )}
             {!totalEntriesLoading && (
               <Text>Total Entries: {totalEntries.toString()}</Text>
-            )}
-             
+            )} 
           </Stack>
         </Flex>
       </SimpleGrid>
-      <Stack mt={"40px"} textAlign={"center"}>
-        <Text fontSize={"xl"}>Current Raffle Participants:</Text>
+      <Stack mt={"30px"} textAlign={"center"}>
+      <Text fontSize={"xl"}>Winner of Last Raffle:</Text>
+      <Winner/>
+        <Text fontSize={"xl"}>New Raffle Participants:</Text>
         <CurrentEntries/>
       </Stack>
     </Container>

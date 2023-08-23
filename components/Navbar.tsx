@@ -19,7 +19,7 @@ export default function Navbar() {
         <Container maxW={"1440px"} py={8}>
             <Flex flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
                 <Link href={"/"}>
-                    <Text fontSize={"40px"} fontWeight={"bold"}>ART RAFFLES</Text>
+                    <Text fontSize={"30px"} fontWeight={"bold"}>ART RAFFLES</Text>
                 </Link>
                 <Flex flexDirection={"row"} alignItems={"center"}>
                     {!adminLoading && address === admin && (
@@ -29,7 +29,7 @@ export default function Navbar() {
                     )}
                     <ConnectWallet />
                 </Flex>
-            </Flex>
+            </Flex> 
         </Container>
     )
 }
