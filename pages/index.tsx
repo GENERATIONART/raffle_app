@@ -112,7 +112,7 @@ const Home: NextPage = () => {
                     contract.call("approve", [LOTTERY_CONTRACT_ADDRESS, 10000000])
                   }}
                 >
-                  ALLOW TOKEN FOR USE
+                  INCREASE ALLOWANCE
                 </Web3Button>
                 ) :  (
                   <Text> </Text>
@@ -120,7 +120,7 @@ const Home: NextPage = () => {
 
             {address ? (
               <Flex flexDirection={"row"}>
-                <Flex flexDirection={"row"} w={"40%"} mr={"40px"}>
+                <Flex flexDirection={"row"} w={"45%"} mr={"40px"}>
                   <Button
                     onClick={decreaseTicketAmount}
                   >-</Button>
@@ -129,7 +129,7 @@ const Home: NextPage = () => {
                     type={"number"}
                     onChange={(e) => setTicketAmount(parseInt(e.target.value))}
                     textAlign={"center"}
-                    mx={1}
+                    mx={3}
                   />
                   <Button
                     onClick={increaseTicketAmount}
