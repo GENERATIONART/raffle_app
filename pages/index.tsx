@@ -66,7 +66,6 @@ const Home: NextPage = () => {
       }else{
         setAllowance(false);
       }
-      
     }
 
     loadApprovalAmount();
@@ -105,7 +104,8 @@ const Home: NextPage = () => {
               <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Ticket: {ticketCostInERC20} DOS</Text>
             )}
              
-             {!allowance? (
+
+            {!allowance ? (
              <Web3Button
                   contractAddress={CUSTOM_TOKEN_ADDRESS}
                   action={(contract) => {
@@ -114,8 +114,8 @@ const Home: NextPage = () => {
                 >
                   ALLOW TOKEN FOR USE
                 </Web3Button>
-                ) : (
-                  <Text></Text>
+                ) :  (
+                  <Text> </Text>
                 )}
 
             {address ? (
@@ -151,7 +151,7 @@ const Home: NextPage = () => {
                 >{`Buy Ticket(s)`}</Web3Button>
               </Flex>
             ) : (
-              <Text>Connect wallet to buy ticket.</Text>
+              <Text>Connect Wallet</Text>
             )}
             {!totalEntriesLoading && (
               <Text>Total Entries: {totalEntries.toString()}</Text>
