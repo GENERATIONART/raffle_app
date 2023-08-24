@@ -1,53 +1,51 @@
 import type { NextPage } from "next";
-import { Box, Button, Container, Flex, Input, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import { MediaRenderer, Web3Button, useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
+import { Box, Button, Container, Flex, Input, SimpleGrid, Stack, Text, useEditableStyles } from "@chakra-ui/react";
+import { MediaRenderer, Web3Button, useAddress, useContract, useContractRead  } from "@thirdweb-dev/react";
 import { HERO_IMAGE_URL, LOTTERY_CONTRACT_ADDRESS, CUSTOM_TOKEN_ADDRESS } from "../const/addresses";
 import LotteryStatus from "../components/Status";
 import { ethers } from "ethers";
 import PrizeNFT from "../components/PrizeNFT";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CurrentEntries from "../components/CurrentEntries";
 import Winner from "../components/Winner";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 const Home: NextPage = () => {
   const address = useAddress();
 
   const {
-    contract
+    contract: contract1
   } = useContract(LOTTERY_CONTRACT_ADDRESS);
 
   const {
+    contract: contract2
+  } = useContract(CUSTOM_TOKEN_ADDRESS);
+
+  const {
     data: lotteryStatus
-  } = useContractRead(contract, "lotteryStatus");
+  } = useContractRead(contract1, "lotteryStatus");
 
   const {
     data: ticketCost,
     isLoading: ticketCostLoading
-  } = useContractRead(contract, "ticketCost");
+  } = useContractRead(contract1, "ticketCost");
   const ticketCostInEther = ticketCost ? ethers.utils.formatEther(ticketCost) : "0";
   
   const {
-    data: ticketCost2,
-    isLoading: ticketCost2Loading
-  } = useContractRead(contract, "getTokenCostInfo", [0] );
-  
-  const ticketCostInDOS = ticketCost2 ? ethers.utils.formatEther(ticketCost) : "0";
-
-  const {
     data: totalEntries,
     isLoading: totalEntriesLoading
-  } = useContractRead(contract, "totalEntries");
+  } = useContractRead(contract1, "totalEntries");
 
+  const {
+    data: ticketCost2,
+    isLoading: ticketCost2Loading
+  } = useContractRead(contract1, "getTokenCostInfo", [0] );
+
+  const ticketCostInERC20 = ticketCost2 ? ethers.utils.formatEther(ticketCost2).toString() : "0";
  
-
-
-  //raffle winner here 
-
-  //is Approved for token allowance here 
-
-  
-
   const [ticketAmount, setTicketAmount] = useState(0);
+  const [allowance, setAllowance] = useState(false);
+
   const ticketCostSubmit = parseFloat(ticketCostInEther) * ticketAmount;
 
   function increaseTicketAmount() {
@@ -59,6 +57,23 @@ const Home: NextPage = () => {
       setTicketAmount(ticketAmount - 1);
     }
   }
+  useEffect(() => {
+    if (!address) return;
+    async function loadApprovalAmount() {
+      const approvedAmount = await contract2?.call("allowance", [address , LOTTERY_CONTRACT_ADDRESS]);
+      if (approvedAmount>= ticketAmount * ticketCost2){
+        setAllowance(true);
+      }else{
+        setAllowance(false);
+      }
+      
+    }
+
+    loadApprovalAmount();
+
+  }, [address,contract2,ticketAmount, ticketCost2]);
+
+  console.log(allowance.toString())
 
   return (
     <Container maxW={"1440px"}>
@@ -87,16 +102,21 @@ const Home: NextPage = () => {
             
             <LotteryStatus status={lotteryStatus}/>
             {!ticketCostLoading && (
-              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Ticket: {ticketCostInEther} DOS</Text>
+              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Ticket: {ticketCostInERC20} DOS</Text>
             )}
+             
+             {!allowance? (
              <Web3Button
                   contractAddress={CUSTOM_TOKEN_ADDRESS}
                   action={(contract) => {
                     contract.call("approve", [LOTTERY_CONTRACT_ADDRESS, 10000000])
                   }}
                 >
-                  APPROVE TOKEN FOR USE
+                  ALLOW TOKEN FOR USE
                 </Web3Button>
+                ) : (
+                  <Text></Text>
+                )}
 
             {address ? (
               <Flex flexDirection={"row"}>

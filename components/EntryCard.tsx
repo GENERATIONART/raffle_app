@@ -24,6 +24,7 @@ const EntryCard: React.FC<Props> = ({ walletAddress }) => {
 
     return (
         <Card p={6} mb={4}>
+            
             {!numberOfEntriesLoading && (
                 <Flex flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Text border={"1px solid"} borderRadius={"6px"} p={2} mr={2}>{truncateAddress(walletAddress)}</Text>
