@@ -120,7 +120,7 @@ const Home: NextPage = () => {
 
             {address ? (
               <Flex flexDirection={"row"}>
-                <Flex flexDirection={"row"} w={"45%"} mr={"40px"}>
+                <Flex flexDirection={"row"} w={"60%"} mr={"40px"}>
                   <Button
                     onClick={decreaseTicketAmount}
                   >-</Button>
@@ -129,7 +129,7 @@ const Home: NextPage = () => {
                     type={"number"}
                     onChange={(e) => setTicketAmount(parseInt(e.target.value))}
                     textAlign={"center"}
-                    mx={3}
+                    mx={.5}
                   />
                   <Button
                     onClick={increaseTicketAmount}
