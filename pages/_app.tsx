@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
 // You can also import additional chains from `@thirdweb-dev/chains` and pass them directly.
-const activeChain = "goerli";
+const activeChain = "ethereum";
 const id = "8aeba115243980d3d5059cd31da58fe6";
 
 function MyApp({ Component, pageProps }: AppProps) {
