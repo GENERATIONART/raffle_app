@@ -66,6 +66,7 @@ const Home: NextPage = () => {
       }else{
         setAllowance(false);
       }
+
     }
 
     loadApprovalAmount();
@@ -135,13 +136,14 @@ const Home: NextPage = () => {
                     onClick={increaseTicketAmount}
                   >+</Button>
                 </Flex>
+
                 
                 <Web3Button
                   contractAddress={LOTTERY_CONTRACT_ADDRESS}
                   action={
                     (contract) => 
                     contract.call(
-                    "transfer",
+                    "buyTicket",
                     [
                       ticketAmount
                       , 0
@@ -153,9 +155,12 @@ const Home: NextPage = () => {
             ) : (
                      <Text>Connect Wallet</Text>
             )}
+            
+
             {!totalEntriesLoading && (
               <Text>Total Entries: {totalEntries.toString()}</Text>
-            )} 
+
+)} 
           </Stack>
         </Flex>
       </SimpleGrid>
