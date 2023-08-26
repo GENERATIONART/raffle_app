@@ -23,7 +23,7 @@ export default function AdminTicketPriceCard() {
     const {
         data: currency,
         isLoading: currencyLoading
-      } = useContractRead(contract, "AllowedCrypto", [0] );
+      } = useContractRead(contract, "getTokenInfo", [0] );
 
       const ticketCostInDOS = ticketCost2 ? ethers.utils.formatEther(ticketCost) : "0";
     
@@ -45,7 +45,7 @@ export default function AdminTicketPriceCard() {
         <Stack spacing={4}>
             <Box>
             
-            <Text fontWeight={"bold"} mb={4} fontSize={"xl"}>CCY Contract Address</Text>
+            <Text fontWeight={"bold"} mb={4} fontSize={"xl"}>ERC20 Contract Address</Text>
             
     
               <Input
@@ -59,7 +59,7 @@ export default function AdminTicketPriceCard() {
                     <Text fontSize={"xl"}>{ethers.utils.formatEther(ticketCost2).toString()} DOS</Text>
                         
                 ) : (
-                    <Text color={"red"} fontWeight={"bold"} fontSize={"xl"}>PLEASE SET TICKET COST</Text>
+                    <Text color={"red"} fontWeight={"bold"} fontSize={"xl"}>Please set ticket cost</Text>
                 )}
             </Box>
           
@@ -69,7 +69,7 @@ export default function AdminTicketPriceCard() {
                 onChange={(e) => setTicketPrice(parseFloat(e.target.value))}
             />
     
-              
+            {!currencyLoading && !currency ? (
             <Web3Button
                 contractAddress={LOTTERY_CONTRACT_ADDRESS}
                 action={(contract) => contract.call(
@@ -81,8 +81,9 @@ export default function AdminTicketPriceCard() {
                 )}
                 onSuccess={resetTicketPrice}
                 isDisabled={lotteryStatus}
-           
-           >Update Ticket Cost</Web3Button>
+             
+           >Update ERC20 Token & Price</Web3Button>
+           ) :(
                     <Web3Button
                 contractAddress={LOTTERY_CONTRACT_ADDRESS}
                 action={
@@ -92,7 +93,8 @@ export default function AdminTicketPriceCard() {
                 )}
                 onSuccess={resetTicketPrice}
                 isDisabled={lotteryStatus}
-            >RESET CONTRACT</Web3Button>
+            >Reset Token Cost</Web3Button>
+           )}
         </Stack>
     )
 }
