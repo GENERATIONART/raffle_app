@@ -21,7 +21,6 @@ const WinnerCard: React.FC<Props> = ({ walletAddress }) => {
         data: winner,
         isLoading: winnerLoading,
       } = useContractRead(contract, "getWinner");
-
     
 
     function truncateAddress(address: string) {

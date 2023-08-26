@@ -40,7 +40,7 @@ export default function WithdrawBalance() {
              <Web3Button
                 contractAddress={LOTTERY_CONTRACT_ADDRESS}
                 action={(contract) => contract.call(
-                    "withdrawBalance", [0]
+                    "withdraw", [0]
                 )}
             >Withdraw {TOKEN_ID}</Web3Button>
             
