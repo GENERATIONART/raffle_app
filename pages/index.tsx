@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { Box, Button, Container, Flex, Input, SimpleGrid, Stack, Text, useEditableStyles } from "@chakra-ui/react";
 import { MediaRenderer, Web3Button, useAddress, useContract, useContractRead  } from "@thirdweb-dev/react";
-import { HERO_IMAGE_URL, LOTTERY_CONTRACT_ADDRESS, CUSTOM_TOKEN_ADDRESS } from "../const/addresses";
+import { HERO_IMAGE_URL, LOTTERY_CONTRACT_ADDRESS, CUSTOM_TOKEN_ADDRESS, TOKEN_ID } from "../const/addresses";
 import LotteryStatus from "../components/Status";
 import { ethers } from "ethers";
 import PrizeNFT from "../components/PrizeNFT";
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
             
             <LotteryStatus status={lotteryStatus}/>
             {!ticketCostLoading && (
-              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Ticket: {ticketCostInERC20} DOS</Text>
+              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Ticket: {ticketCostInERC20} {TOKEN_ID}</Text>
             )}
              
 
@@ -112,7 +112,7 @@ const Home: NextPage = () => {
                     contract.call("approve", [LOTTERY_CONTRACT_ADDRESS, 10000000])
                   }}
                 >
-                  INCREASE ALLOWANCE
+                  INCREASE {TOKEN_ID} TOKEN ALLOWANCE
                 </Web3Button>
                 ) :  (
                   <Text> </Text>
@@ -141,17 +141,17 @@ const Home: NextPage = () => {
                   action={
                     (contract) => 
                     contract.call(
-                    "buyTicket",
+                    "transfer",
                     [
                       ticketAmount
                       , 0
                     ],
                   )}
-                  isDisabled={!lotteryStatus}
+                  isDisabled={!lotteryStatus || !allowance || !ticketAmount} 
                 >{`Buy Ticket(s)`}</Web3Button>
               </Flex>
             ) : (
-              <Text>Connect Wallet</Text>
+                     <Text>Connect Wallet</Text>
             )}
             {!totalEntriesLoading && (
               <Text>Total Entries: {totalEntries.toString()}</Text>

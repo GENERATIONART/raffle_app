@@ -19,7 +19,7 @@ export default function Navbar() {
         <Container maxW={"1440px"} py={8}>
             <Flex flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
                 <Link href={"/"}>
-                    <Text fontSize={"20px"} fontWeight={"bold"}>ART RAFFLES</Text>
+                    <Text fontSize={"25px"} fontWeight={"bold"}>ART RAFFLES</Text>
                 </Link>
                 <Flex flexDirection={"row"} alignItems={"center"}>
                     {!adminLoading && address === admin && (
